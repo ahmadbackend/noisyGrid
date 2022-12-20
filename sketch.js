@@ -3,7 +3,7 @@ var stepSize = 20;
 function setup() {
   createCanvas(500, 500);
  // rectMode(CENTER);
-  angleMode(DEGREES);
+angleMode(DEGREES);
 }
 ///////////////////////////////////////////////////////////////////////
 function draw() {
@@ -36,22 +36,38 @@ function colorGrid(){
   
 }
 ///////////////////////////////////////////////////////////////////////
+var val;
 function compassGrid(){
   // your code here
- 
-  for(let i=0;i<height;i+=stepSize)
+// push();
+  for(let i=stepSize/4;i<height;i+=stepSize/2)
   {
-    for(let j=0;j<width;j+=stepSize)
+   push(); 
+   translate(0,i)
+  
+    for(let j=stepSize/4;j<width;j+=stepSize/2)
   {
-     var mousy=(width+1)/mouseX; 
-    let noi=noise(j,i,frameCount/1000*mousy);
-    let val = map(noi,0,1,0,720);
-    
-    translate(j/2); // translate x to have value of j 
+     
+    //x-coordinate in space=j 
+    //y-coordinatein space=i 
+    //both are large number  for noise 
+   
+    push(); 
     rotate(val);
+    translate(j,0);
+   
+    let noi=noise(j/width,i/height,frameCount/100);
+    val = map(noi,0,1,0,720);
+   //  
     stroke(255,0,0);
-    line(j,i,j,i+stepSize);
-    noStroke();
+    line(j,i,j,i+stepSize*0.9);
+   
+    pop();
+
   }
+  pop();
+      //noLoop()
+  
   } 
+ // pop();
 }
